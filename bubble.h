@@ -4,13 +4,15 @@
 #include <string>
 #include <vector>
 
-class bubble_sort
+class bubble
 {
     public:
         
-        int[] sort(int[] arr) ;                  //sort int array
-        void swap(int& a, int& b);               //swap element
-        void print(int arr[], int size);
+        // A function to implement bubble sort
+        bubble();
+        void Sort(int arr[], int n)    ;              //sort int array
+        void swap(int a, int b);               //swap element
+        void print(int* arr, int size);
 };
 
 #endif
