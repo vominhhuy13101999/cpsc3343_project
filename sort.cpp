@@ -2,6 +2,8 @@
 #include <iostream>
 #include <ctime>
 #include "sort.h"
+
+
 using namespace std;
 void print(int *num,int n);
 void swap(int *num,int i,int j) {
@@ -202,4 +204,21 @@ void print(int*num,int size){
         cout<<*(num+i)<<", ";
         }
     cout<<"]"<<endl;
+}
+
+
+int* generate_array(int size,string filename,string name){
+    int* a=(int*)malloc(size*sizeof(int));
+    ofstream myfile;
+    myfile.open("example.txt");
+    myfile <<name<< " = {";
+    
+    for (int i =0; i<size;i++){
+        a[i]=rand() % INT_MAX; 
+        myfile<<a[i]<<" ,";
+    }
+    myfile<<" }";
+    myfile.close();
+    return a;
+
 }

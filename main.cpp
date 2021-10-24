@@ -2,6 +2,9 @@
 #include <iostream>
 #include <ctime>
 #include "sort.h"
+#include <iterator>
+#include <algorithm>
+
 
 using namespace std;
 
@@ -13,7 +16,7 @@ int main()
     int n = sizeof(ar)/sizeof(ar[0]);
     static int *l1=(int*)malloc((2)*sizeof(int));
     static int *r1=(int*)malloc((3)*sizeof(int));
-
+  
     // int r1[3]={422, 517, 830};
     // print(l1,2);
     // print(r1,3);
@@ -24,10 +27,10 @@ int main()
     // int* store=merge_sort(ar,30);
     // int *n1=merge(l1,2,r1,3);
     cout<<"----------------------------------------------"<<endl;
-
+    int* arry=generate_array(50000,"ex","arr1");
     // print(store,30);
-    shell_sort(&ar[0],n);
-    print(ar,n);
+    quick_sort(arry,50000,0,49999);
+    print(arry,50000);
     
     cout<<"----------------------------------------------"<<endl;
 

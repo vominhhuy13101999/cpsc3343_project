@@ -1,7 +1,7 @@
 #ifndef SORT_H
 #define SORT_H
 using namespace std;
-
+    int* generate_array(int size,string filename,string name);
     void print(int *num,int n);
     int* merge(int *a1,int n1,int*a2,int n2);
     int partition(int* num,int n,int l,int h);
