@@ -14,9 +14,9 @@ void swap(int *num,int i,int j) {
     
 } 
 void bubble_sort(int *num,int n){
-    cout<<"----------------------------------------------"<<endl;
+    // cout<<"----------------------------------------------"<<endl;
 
-    cout<<num<<endl;
+    // cout<<num<<endl;
     for (int i =0;i<n;i++){
         int count=0;
         for (int j=0; j<n-1;j++){
@@ -205,20 +205,133 @@ void print(int*num,int size){
         }
     cout<<"]"<<endl;
 }
+void print(int** num,int size){
+    cout<<"[ ";
+    for (int i = 0; i<size; i++){
+        
 
+        cout<<*(num+i)<<", ";
+        }
+    cout<<"]"<<endl;
+}
 
-int* generate_array(int size,string filename,string name){
-    int* a=(int*)malloc(size*sizeof(int));
+string generate_array(int size,int sample){
+    int r;
+    string name=to_string(size)+"__"+to_string(sample);
     ofstream myfile;
-    myfile.open("example.txt");
-    myfile <<name<< " = {";
-    
-    for (int i =0; i<size;i++){
-        a[i]=rand() % INT_MAX; 
-        myfile<<a[i]<<" ,";
+    string filename="array_"+name+".txt";
+    myfile.open(filename);
+    for (int _=0;_<sample;_++){
+        for (int i =0; i<size;i++){
+            r=rand() % INT_MAX; 
+            myfile<<r<<" ";
+        }
+        myfile<<"\n ";
     }
-    myfile<<" }";
     myfile.close();
-    return a;
+    return filename;
 
 }
+void read_dataset(int **arr,string filename,int size,int sample){
+    int element;
+    ifstream myfile (filename);
+    if (myfile.is_open())
+    {   
+        for( int _ =0;_<sample;_++) {
+            int i = 0;
+            // cout<<i<<endl;
+            int* arr_i=*(arr+_);
+            while (i<size) {
+                myfile >> element;
+
+                *(arr_i+(i++)) = element;
+            }
+            }
+        myfile.close();
+    }
+
+    else cout << "Unable to open file";
+}
+int ** generate_carrier(int size,int sample){
+    int** carrier=(int**)(malloc(sample*size*sizeof(int)));
+    for(int i=0;i<sample;i++ ){
+        carrier[i]=(int*) malloc(size*sizeof(int));
+    }
+    return carrier;
+}
+string generate_array_ascend(int size,int sample){
+    int r;
+    ofstream myfile;
+    string name=to_string(size)+"__"+to_string(sample);
+
+    string filename="Ascending_array_"+name+".txt";
+    myfile.open(filename);
+    int m=0;
+    for (int _=0;_<sample;_++){
+        for (int i =0; i<size;i++){
+            r=rand() % 10000000+m; 
+            myfile<<r<<" ";
+            m=r;
+        }
+        myfile<<"\n ";
+    }
+    myfile.close();
+    return filename;
+
+}
+
+string generate_array_descend(int size,int sample){
+    int r;
+    ofstream myfile;
+    string name=to_string(size)+"__"+to_string(sample);
+
+    string filename="Descending_array_"+name+".txt";
+    myfile.open(filename);
+    int m=INT_MAX;
+    cout<<"______________________________________________"<<endl;
+
+    for (int _=0;_<sample;_++){
+        for (int i =0; i<size;i++){
+            r=rand() % m;
+            r=r+((r+m)-(r+m)%2)/2; 
+            myfile<<r<<" ";
+            m=r;
+            cout<<m<<endl;
+            if (m==0){
+                cout<<"I told you so. Pre pare for error ...";
+            }
+        }
+        myfile<<"\n ";
+    }
+    myfile.close();
+    return filename;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
