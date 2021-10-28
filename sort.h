@@ -13,11 +13,11 @@ using namespace std;
     int ** generate_carrier(int size,int sample);
 
     //test
-    string test(int size);
-    string test1(int size);
-    string test2(int size);
-    string test3(int size);
-    string test4(int size);
+    string test(int size);  //original test
+    string test1(int size);  //mix position test
+    string test2(int size);  //ascend
+    string test3(int size);  //descend
+    string test4(int size); 
     string test5(int size);
 
     //sort
@@ -29,7 +29,7 @@ using namespace std;
     void selection_sort(int* num,int n);
     void insertion_sort(int* num, int n);
     int* merge_sort(int *num,int n);
-    // void quick_sort(int* num,int n,int l, int h);
+    void quickSort(int* num,int n,int l, int h);
     void quick_sort(int arr[], int low, int high) ;
     void shell_sort(int*num,int n);
    

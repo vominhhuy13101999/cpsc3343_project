@@ -186,41 +186,43 @@ void quick_sort(int arr[], int low, int high)
 arr[] --> Array to be sorted, 
 low --> Starting index, 
 high --> Ending index */
-// int partition(int* num,int n,int l,int h){
-//     int pivot=*(num+l);
-//     int i=l;
-//     int j=h;
-//     while(i<j){
-//         while (*(num+i)<=pivot && i<n-1){
-//             i++;
-//         }
-//         while (*(num+j)>pivot && j>0){
-//             j--;
-//         }
-//         if (i<j)
-//             swap(num,i,j);
+int partition(int* num,int n,int l,int h){
+    int pivot=*(num+l);
+    int i=l;
+    int j=h;
+    while(i<j){
+        while (*(num+i)<=pivot && i<n-1){
+            i++;
+        }
+        while (*(num+j)>pivot && j>0){
+            j--;
+        }
+        if (i<j)
+            swap(num,i,j);
     
-//     }
-//     swap(num,j,l);
-//     return j;
-// }
-// void quick_sort(int* num,int n,int l, int h){
-//     if (l<h){
-//         int index=partition(num,n,l,h);
-//         quick_sort(num,n,l,index);
-//         quick_sort(num,n,index+1,h);
-//     }
-//     return;
-// }
+    }
+    swap(num,j,l);
+    return j;
+}
+void quickSort(int* num,int n,int l, int h){
+    if (l<h){
+        int index=partition(num,n,l,h);
+        quickSort(num,n,l,index);
+        quickSort(num,n,index+1,h);
+    }
+    return;
+}
 
 void shell_sort(int*num,int n){
     int gap=(n-n%2)/2;
     int i,j,key;
     while (gap>0){
         for (i=gap;i<n;i++){
+
             key=*(num+i);
             j=i-gap;
             while (*(num+j)>key && j>=0){
+
                 *(num+j+gap)=*(num+j);
                 j-=gap;
             }
@@ -540,13 +542,13 @@ string test2(int size){
     clock_t start, end;
     double cpu_time_used;
     ofstream myfile;
-    string name="./time/timefile_"+to_string(size)+"_2.txt";
+    string name="./time/timefile_"+to_string(size)+"_Ascending.txt";
     myfile.open(name);
 
     int sample_size=5;
     int** carrier=generate_carrier(size,sample_size);
-    string filename="./data/data_"+to_string(size)+".txt";
-    myfile<<"INSERTION MERGE QUICK SHELL BUBBLE SELECTION \n";
+    string filename="./data/data_"+to_string(size)+"_ascend.txt";
+    myfile<<"BUBBLE SELECTION INSERTION MERGE QUICK SHELL \n";
 
     read_dataset(carrier,filename,size,sample_size);
     for (int i=0;i<5;i++){
@@ -556,53 +558,12 @@ string test2(int size){
             int *d=make_copy(carrier[i],size);
             int *e=make_copy(carrier[i],size);
             int *f=make_copy(carrier[i],size);
+            // int *g=make_copy(carrier[i],size);
+
 
             cout<<"data: "<<i<<endl;
 
      // ___________________________________________________
-            
-
-            
-
-            //INSERTION
-            start = clock();
-            insertion_sort(c,size);
-            end = clock();
-            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-            myfile<<cpu_time_used<<" ";
-            cout<<"insertion: "<<i<<endl;
-
-
-            //MERGE
-            start = clock();
-            int* d1=merge_sort(carrier[i],size);
-            end = clock();
-            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-            myfile<<cpu_time_used<<" ";
-            cout<<"merge: "<<i<<endl;
-
-
-            //QUICK
-            start = clock();
-            // quick_sort(e,size,0,size-1);
-            quick_sort(e,0,size-1);
-            end = clock();
-            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-            myfile<<cpu_time_used<<" ";
-            cout<<"quick: "<<i<<endl;
-
-
-            //SHELL
-            start = clock();
-            shell_sort(f,size);
-            end = clock();
-            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-            myfile<<cpu_time_used<<" ";
-            cout<<"shell: "<<i<<endl;
-
-            
-
-            
             //BUBBLE
             start = clock();
             bubble_sort(a,size);
@@ -618,8 +579,54 @@ string test2(int size){
             cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
             myfile<<cpu_time_used<<" ";
             cout<<"selection: "<<i<<endl;
-            
+
+            //INSERTION
+            start = clock();
+            insertion_sort(c,size);
+            end = clock();
+            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+            myfile<<cpu_time_used<<" ";
+            cout<<"insertion: "<<i<<endl;
+
+
+            //MERGE
+            start = clock();
+            int* d1=merge_sort(d,size);
+            end = clock();
+            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+            myfile<<cpu_time_used<<" ";
+            cout<<"merge: "<<i<<endl;
+
+
+            //QUICK
+            // start = clock();
+            // quick_sort(e,0,size-1);
+            // end = clock();
+            // cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+            // myfile<<cpu_time_used<<" ";
+            // cout<<"quick: "<<i<<endl;
+
+            // //QUICK_
+            // start = clock();
+            // quickSort(g,size,0,size-1);
+            // end = clock();
+            // cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+            // myfile<<cpu_time_used<<" ";
+            // cout<<"quick_: "<<i<<endl;
+
+            //SHELL
+            start = clock();
+            shell_sort(f,size);
+            end = clock();
+            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+            myfile<<cpu_time_used<<" ";
+            cout<<"shell: "<<i<<endl;
+
             myfile<<" \n";
+
+            
+            
+            
     }
     myfile.close();
 
@@ -630,13 +637,13 @@ string test3(int size){
     clock_t start, end;
     double cpu_time_used;
     ofstream myfile;
-    string name="./time/timefile_"+to_string(size)+"_3.txt";
+    string name="./time/timefile_"+to_string(size)+"_Descend.txt";
     myfile.open(name);
 
     int sample_size=5;
     int** carrier=generate_carrier(size,sample_size);
-    string filename="./data/data_"+to_string(size)+".txt";
-    myfile<<"MERGE QUICK SHELL BUBBLE SELECTION INSERTION \n";
+    string filename="./data/data_"+to_string(size)+"_descend.txt";
+    myfile<<"BUBBLE SELECTION INSERTION MERGE QUICK SHELL \n";
 
     read_dataset(carrier,filename,size,sample_size);
     for (int i=0;i<5;i++){
@@ -650,43 +657,6 @@ string test3(int size){
             cout<<"data: "<<i<<endl;
 
      // ___________________________________________________
-            
-
-            
-
-            
-
-
-            //MERGE
-            start = clock();
-            int* d1=merge_sort(carrier[i],size);
-            end = clock();
-            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-            myfile<<cpu_time_used<<" ";
-            cout<<"merge: "<<i<<endl;
-
-
-            //QUICK
-            start = clock();
-            // quick_sort(e,size,0,size-1);
-            quick_sort(e,0,size-1);
-            end = clock();
-            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-            myfile<<cpu_time_used<<" ";
-            cout<<"quick: "<<i<<endl;
-
-
-            //SHELL
-            start = clock();
-            shell_sort(f,size);
-            end = clock();
-            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-            myfile<<cpu_time_used<<" ";
-            cout<<"shell: "<<i<<endl;
-
-            
-
-            
             //BUBBLE
             start = clock();
             bubble_sort(a,size);
@@ -710,8 +680,41 @@ string test3(int size){
             cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
             myfile<<cpu_time_used<<" ";
             cout<<"insertion: "<<i<<endl;
-            
+
+
+            //MERGE
+            start = clock();
+            int* d1=merge_sort(d,size);
+            end = clock();
+            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+            myfile<<cpu_time_used<<" ";
+            cout<<"merge: "<<i<<endl;
+
+
+            //QUICK
+            // start = clock();
+            // quick_sort(e,0,size-1);
+            // end = clock();
+            // cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+            // myfile<<cpu_time_used<<" ";
+            // cout<<"quick: "<<i<<endl;
+
+
+
+            //SHELL
+            start = clock();
+            shell_sort(f,size);
+            end = clock();
+            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+            myfile<<cpu_time_used<<" ";
+            cout<<"shell: "<<i<<endl;
+
             myfile<<" \n";
+
+            
+            
+            
+    
     }
     myfile.close();
 
@@ -819,7 +822,7 @@ string test5(int size){
     int sample_size=5;
     int** carrier=generate_carrier(size,sample_size);
     string filename="./data/data_"+to_string(size)+".txt";
-    myfile<<"SHELL BUBBLE SELECTION INSERTION MERGE QUICK\n";
+    myfile<<"BUBBLE SELECTION INSERTION MERGE QUICK SHELL \n";
 
     read_dataset(carrier,filename,size,sample_size);
     for (int i=0;i<5;i++){
@@ -834,9 +837,15 @@ string test5(int size){
 
      // ___________________________________________________
             
-
-
             
+            
+            //BUBBLE
+            // start = clock();
+            // bubble_sort(a,size);
+            // end = clock();
+            // cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+            // myfile<<cpu_time_used<<" ";
+            // cout<<"bubble: "<<i<<endl;
 
 
             //SHELL
@@ -847,17 +856,29 @@ string test5(int size){
             myfile<<cpu_time_used<<" ";
             cout<<"shell: "<<i<<endl;
 
-            
 
-            
-            //BUBBLE
+            //QUICK
             start = clock();
-            bubble_sort(a,size);
+            // quick_sort(e,size,0,size-1);
+            quick_sort(e,0,size-1);
             end = clock();
             cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
             myfile<<cpu_time_used<<" ";
-            cout<<"bubble: "<<i<<endl;
+            cout<<"quick: "<<i<<endl;
 
+            
+            
+            //MERGE
+            start = clock();
+            int* d1=merge_sort(d,size);
+            end = clock();
+            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+            myfile<<cpu_time_used<<" ";
+            cout<<"merge: "<<i<<endl;
+
+
+            
+            
             //SELECTION
             start = clock();
             selection_sort(b,size);
@@ -873,25 +894,25 @@ string test5(int size){
             cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
             myfile<<cpu_time_used<<" ";
             cout<<"insertion: "<<i<<endl;
+            
 
-            //MERGE
-            start = clock();
-            int* d1=merge_sort(carrier[i],size);
-            end = clock();
-            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-            myfile<<cpu_time_used<<" ";
-            cout<<"merge: "<<i<<endl;
+            
 
-            //QUICK
-            start = clock();
-            // quick_sort(e,size,0,size-1);
-            quick_sort(e,0,size-1);
-            end = clock();
-            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-            myfile<<cpu_time_used<<" ";
-            cout<<"quick: "<<i<<endl;
+            
+            
+            
+            
+
+            
+
+            
+
+            
+
+            
             
             myfile<<" \n";
+    
     }
     myfile.close();
 
