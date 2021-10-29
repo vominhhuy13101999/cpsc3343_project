@@ -21,15 +21,19 @@ int main()
     cout<<"Please choose size of test (15/30/70/130/250): ";
     cin>>in;
     string a="aAdD";
+
+
+
+
     if (in!=15 && in!=30 && in!=70 && in!=130 && in!=250 )
         in=15;
-    if (input.compare(a.substr(0,1))==0 || input.compare(a.substr(1,1))){
+    if (input.compare(a.substr(0,1))==0 || input.compare(a.substr(1,1))==0){
         if (in ==250)
             name=test4();
         else
             name=test2(in*1000);
     }
-    else if(input.compare(a.substr(2,1))==0 || input.compare(a.substr(3,1))){
+    else if(input.compare(a.substr(2,1))==0 || input.compare(a.substr(3,1))==0){
         if (in ==250)
             name=test5();
         else
